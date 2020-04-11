@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloud.file.management.server.controller.MainViewController">
+   <children>
+      <SplitPane dividerPositions="0.5">
+         <items>
+            <Label maxWidth="1.7976931348623157E308" text="USERS">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label maxWidth="1.7976931348623157E308" text="FILES">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </items>
+      </SplitPane>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <children>
+            <ListView fx:id="listViewUsers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            <TreeView fx:id="treeViewFiles" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="® BY KRZYSZTOF SĘKOWSKI" textAlignment="CENTER" VBox.vgrow="NEVER" />
+   </children>
+</VBox>
