@@ -16,8 +16,6 @@ public class AppMain extends Application {
         Thread communicationThread =  new Thread(EchoMultiServer::run);
         communicationThread.setDaemon(true);
         communicationThread.start();
-
-
         launch();
     }
 
