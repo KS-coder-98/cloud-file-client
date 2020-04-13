@@ -13,7 +13,7 @@ public class AppMain extends Application {
     public static void main(String[] args) {
         ServerSetting serverSetting = new ServerSetting();
         new EchoMultiServer(ServerSetting.getPort());
-        Thread communicationThread =  new Thread(EchoMultiServer::run);
+        Thread communicationThread = new Thread(EchoMultiServer::run);
         communicationThread.setDaemon(true);
         communicationThread.start();
         launch();

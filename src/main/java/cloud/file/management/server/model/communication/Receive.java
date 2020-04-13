@@ -2,28 +2,23 @@ package cloud.file.management.server.model.communication;
 
 import cloud.file.management.common.Message;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.util.List;
 
-public class Receive {
+public class Receive extends Thread{
     private ObjectInputStream in;
+    List<Message> msgList; //todo check this now use useless
 
-    public Receive(ObjectInputStream in){
+    public Receive(ObjectInputStream in, List<Message> msgList){
         this.in = in;
+        this.msgList = msgList;
     }
 
     public void run(){
         Message inputObject;
         try {
             while ((inputObject = (Message)in.readObject())!=null){
-                System.out.println(inputObject.getLogin()+"   "+inputObject.getPath());
-                File file =  new File("D:\\folderTestowyAplikacja\\kopia.PNG");
-                try(FileOutputStream fileOutputStream = new FileOutputStream(file)){
-                    fileOutputStream.write(inputObject.getFileInByte());
-                    fileOutputStream.flush();
-                }
+                    inputObject.preprocess();
             }
         }catch (ClassNotFoundException | IOException e){
             e.printStackTrace();

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 public class ServerSetting {
     private static Path pathToUserResources;
     private static int port;
+    private static boolean sendListOfUser; //todo
 
     public static Path getPathToUserResources() {
         return pathToUserResources;
@@ -22,7 +23,7 @@ public class ServerSetting {
         ServerSetting.port = port;
     }
 
-    public ServerSetting(){
+    public ServerSetting() {
         pathToUserResources = Path.of("D:\\AAAfolderToProject");
         port = 5555;
     }

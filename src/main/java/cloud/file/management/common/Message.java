@@ -1,27 +1,48 @@
 package cloud.file.management.common;
 
-import java.io.Serializable;
+import cloud.file.management.server.model.communication.Send;
 
-public class Message implements Serializable {
-    private TypeMessage typeMessage;
+import java.io.Serializable;
+import java.util.List;
+
+public abstract class Message implements Serializable {
     private String login;
     private String path;
+    private String pathDst;
     private byte[] fileInByte;
-    //todo pathSrc pathDst
+    private List<String> list;
 
-    public Message(TypeMessage typeMessage, String login, String path, byte[] fileInByte) {
-        this.typeMessage = typeMessage;
+    public Message(String login, String path, String pathDst, byte[] fileInByte) {
         this.login = login;
         this.path = path;
+        this.pathDst = pathDst;
         this.fileInByte = fileInByte;
     }
 
-    public TypeMessage getTypeMessage() {
-        return typeMessage;
+    public Message(String login) {
+        this.login = login;
+        this.path = null;
+        this.fileInByte = null;
     }
 
-    public void setTypeMessage(TypeMessage typeMessage) {
-        this.typeMessage = typeMessage;
+    public Message() {
+
+    }
+
+    public String getPathDst() {
+        return pathDst;
+    }
+
+    public void setPathDst(String pathDst) {
+        this.pathDst = pathDst;
+    }
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
     }
 
     public String getLogin() {
@@ -47,4 +68,6 @@ public class Message implements Serializable {
     public void setFileInByte(byte[] fileInByte) {
         this.fileInByte = fileInByte;
     }
+
+    public abstract void preprocess();
 }
