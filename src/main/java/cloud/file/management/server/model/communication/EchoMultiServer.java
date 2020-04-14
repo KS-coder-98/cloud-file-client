@@ -2,6 +2,7 @@ package cloud.file.management.server.model.communication;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EchoMultiServer {
@@ -11,13 +12,14 @@ public class EchoMultiServer {
 
     public EchoMultiServer(int port) {
         EchoMultiServer.port = port;
+        listUser = new ArrayList<>();
     }
 
     public static void run() {
         try {
             socket = new ServerSocket(port);
             while (true){
-                var echoClientHandler = new EchoClientHandler(socket.accept());
+                EchoClientHandler echoClientHandler = new EchoClientHandler(socket.accept());
                 echoClientHandler.start();
                 listUser.add(echoClientHandler);
             }

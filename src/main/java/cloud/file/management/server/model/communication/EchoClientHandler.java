@@ -19,6 +19,14 @@ public class EchoClientHandler extends Thread {
         try {
             List<Message> msgList = Collections.synchronizedList(new ArrayList<>());
             receive = new Receive(new ObjectInputStream(socket.getInputStream()), msgList);
+            try {
+                var i = (Message)receive.getIn().readObject();
+                login = i.getLogin();
+                System.out.println(login);
+                i.preprocess();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
             send = new Send(new ObjectOutputStream(socket.getOutputStream()), msgList);
         } catch (IOException e) {
             e.printStackTrace();

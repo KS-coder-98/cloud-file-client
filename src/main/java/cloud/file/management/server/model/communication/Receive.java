@@ -32,4 +32,12 @@ public class Receive extends Thread{
     public void setMsgList(List<Message> msgList) {
         this.msgList = msgList;
     }
+
+    public ObjectInputStream getIn() {
+        return in;
+    }
+
+    public void setIn(ObjectInputStream in) {
+        this.in = in;
+    }
 }

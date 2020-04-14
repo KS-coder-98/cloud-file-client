@@ -12,6 +12,7 @@ public class ListLocalFileMessage extends Message {
 
     @Override
     public void preprocess() {
+        System.out.println("otrzymano listlocalfilemessafge");
         ServerTask.makeRequestForFile(getList(), getLogin());
     }
 }
