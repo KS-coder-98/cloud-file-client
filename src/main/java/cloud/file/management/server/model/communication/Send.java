@@ -30,11 +30,15 @@ public class Send extends Thread {
     public void run() {
         while (true) {
             send(new ListUserMessage());
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            if ( !msgList.isEmpty() ){
+                send(msgList.get(0));
+                msgList.remove(0);
+            }else
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         }
     }
 }

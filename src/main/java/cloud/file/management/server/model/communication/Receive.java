@@ -24,4 +24,12 @@ public class Receive extends Thread{
             e.printStackTrace();
         }
     }
+
+    public List<Message> getMsgList() {
+        return msgList;
+    }
+
+    public void setMsgList(List<Message> msgList) {
+        this.msgList = msgList;
+    }
 }

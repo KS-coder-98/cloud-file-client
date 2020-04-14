@@ -11,6 +11,7 @@ import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class HandlerResources {
@@ -48,5 +49,24 @@ public abstract class HandlerResources {
             e.printStackTrace();
         }
         return Collections.max(fileTimes);
+    }
+
+    public static List<String> listNameFile(String login){
+        List<String> fileList = null;
+        Path path = Path.of( ServerSetting.getPathToUserResources().toString()+"\\"+login);
+        int index = (path.toString()).length();
+//        int index = User.getPath().toString().length();
+        try (Stream<Path> pathStream = Files.walk(path)){
+            fileList = pathStream.filter(p->Files.isRegularFile(p))
+                    .map(Path::toString)
+                    .map(s->s.substring(index))
+                    .filter(s -> s.length()>0)
+                    .map(s->s.replaceFirst("\\\\", ""))
+                    .sorted()
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileList;
     }
 }

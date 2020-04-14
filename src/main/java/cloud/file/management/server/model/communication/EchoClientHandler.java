@@ -13,6 +13,7 @@ import java.util.List;
 public class EchoClientHandler extends Thread {
     private Receive receive;
     private Send send;
+    private String login;
 
     public EchoClientHandler(Socket socket) {
         try {
@@ -28,5 +29,29 @@ public class EchoClientHandler extends Thread {
     public void run() {
         receive.start();
         send.start();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public Receive getReceive() {
+        return receive;
+    }
+
+    public void setReceive(Receive receive) {
+        this.receive = receive;
+    }
+
+    public Send getSend() {
+        return send;
+    }
+
+    public void setSend(Send send) {
+        this.send = send;
     }
 }
