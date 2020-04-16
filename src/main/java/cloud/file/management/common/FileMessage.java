@@ -15,7 +15,7 @@ public class FileMessage extends Message {
 
     @Override
     public void preprocess() {
-        System.out.println("ptrzymano plik");
+        System.out.println("preprocess FileMessage");
         FileAPI.saveFile(getLogin(), getPath(), getPathDst(), getFileInByte());
     }
 }

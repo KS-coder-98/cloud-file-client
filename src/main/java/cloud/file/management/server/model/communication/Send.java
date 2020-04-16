@@ -29,7 +29,7 @@ public class Send extends Thread {
 
     public void run() {
         while (true) {
-            send(new ListUserMessage());
+//            send(new ListUserMessage());
             if ( !msgList.isEmpty() ){
                 send(msgList.get(0));
                 msgList.remove(0);

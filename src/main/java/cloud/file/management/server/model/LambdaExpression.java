@@ -14,6 +14,7 @@ public abstract class LambdaExpression {
     public static <T> void actionIf(List<T> list, Consumer<T>consumer, Predicate<T>predicate){
         for ( T t : list ){
             if ( predicate.test(t) ){
+                System.out.println("weszlo do ifa dla "+ t.toString());
                 consumer.accept(t);
             }
         }

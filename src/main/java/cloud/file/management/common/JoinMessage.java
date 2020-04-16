@@ -1,7 +1,7 @@
 package cloud.file.management.common;
 
 import cloud.file.management.server.model.ServerSetting;
-import cloud.file.management.server.model.communication.Send;
+import cloud.file.management.server.model.event.ServerTask;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +14,7 @@ public class JoinMessage extends Message {
 
     @Override
     public void preprocess() {
+        System.out.println("preprocess JoinMessage");
         Path path = Path.of(ServerSetting.getPathToUserResources() + "\\" + this.getLogin());
         if (!Files.exists(path)) {
             try {

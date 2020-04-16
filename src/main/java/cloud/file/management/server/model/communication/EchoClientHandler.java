@@ -1,6 +1,7 @@
 package cloud.file.management.server.model.communication;
 
 import cloud.file.management.common.Message;
+import cloud.file.management.server.model.event.ServerTask;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,10 +21,9 @@ public class EchoClientHandler extends Thread {
             List<Message> msgList = Collections.synchronizedList(new ArrayList<>());
             receive = new Receive(new ObjectInputStream(socket.getInputStream()), msgList);
             try {
-                var i = (Message)receive.getIn().readObject();
-                login = i.getLogin();
-                System.out.println(login);
-                i.preprocess();
+                var msg = (Message)receive.getIn().readObject();
+                login = msg.getLogin();
+                msg.preprocess();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
