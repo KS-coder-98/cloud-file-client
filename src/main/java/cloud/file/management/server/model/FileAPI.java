@@ -49,13 +49,14 @@ public abstract class FileAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Message msg = new FileMessage(login, path, dstUser, file);
-        if (!login.equals(dstUser) ){
-            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
-                t->t.getReceive().getMsgList().add(msg),
-                t->t.getLogin().equals(dstUser)
-            );
-        }
+        //todo zrobic zapis pliku
+//        Message msg = new FileMessage(login, path, dstUser, file);
+//        if (!login.equals(dstUser) ){
+//            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
+//                t->t.getReceive().getMsgList().add(msg),
+//                t->t.getLogin().equals(dstUser)
+//            );
+//        }
 //        if (!login.equals(dstUser) ){
 //            for( var handlerClient : EchoMultiServer.getListUser() ){
 //                if ( handlerClient.getLogin().equals(dstUser) ){

@@ -20,11 +20,12 @@ public class RequestForFileMessage extends Message {
         for (var relativePath : getList()) {
             Path absolutePath = Path.of(ServerSetting.getPathToUserResources().toString()+"\\"+getLogin()+"\\"+relativePath);
             System.out.println("serwer ma wyslac te pliki: ");
-            Message msg = new FileMessage(getLogin(), relativePath, getLogin(), FileAPI.getStreamFile(absolutePath));
-            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
-                    t->t.getReceive().getMsgList().add(msg),
-                    t->t.getLogin().equals(getLogin())
-            );
+            //todo wysyłanie plikow do klijenta
+//            Message msg = new FileMessage(getLogin(), relativePath, getLogin(), FileAPI.getStreamFile(absolutePath));
+//            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
+//                    t->t.getReceive().getMsgList().add(msg),
+//                    t->t.getLogin().equals(getLogin())
+//            );
         }
     }
 }

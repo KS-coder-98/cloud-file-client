@@ -7,6 +7,7 @@ import java.util.List;
 
 public class EchoMultiServer {
     private static ServerSocket socket;
+    private static ServerSocket socketForFile;
     private static int port;
     private static List<EchoClientHandler> listUser;
 
@@ -18,8 +19,9 @@ public class EchoMultiServer {
     public static void run() {
         try {
             socket = new ServerSocket(port);
+            socketForFile = new ServerSocket(port+1);
             while (true){
-                EchoClientHandler echoClientHandler = new EchoClientHandler(socket.accept());
+                EchoClientHandler echoClientHandler = new EchoClientHandler(socket.accept(), socketForFile.accept());
                 echoClientHandler.start();
                 listUser.add(echoClientHandler);
             }

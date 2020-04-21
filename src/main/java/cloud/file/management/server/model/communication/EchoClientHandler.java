@@ -16,10 +16,13 @@ public class EchoClientHandler extends Thread {
     private Send send;
     private String login;
 
-    public EchoClientHandler(Socket socket) {
+    private ReceiveFile receiveFile;
+
+    public EchoClientHandler(Socket socket, Socket socketForFile) {
         try {
             List<Message> msgList = Collections.synchronizedList(new ArrayList<>());
             receive = new Receive(new ObjectInputStream(socket.getInputStream()), msgList);
+//            receiveFile = new ReceiveFile()
             try {
                 var msg = (Message)receive.getIn().readObject();
                 login = msg.getLogin();

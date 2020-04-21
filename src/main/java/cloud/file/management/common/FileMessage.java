@@ -9,13 +9,14 @@ public class FileMessage extends Message {
         super();
     }
 
-    public FileMessage(String login, String path, String pathDst, byte[] fileInByte) {
-        super(login, path, pathDst, fileInByte);
+    public FileMessage(String login, String path, String pathDst, long id) {
+        super(login, path, pathDst, id);
     }
 
     @Override
     public void preprocess() {
         System.out.println("preprocess FileMessage");
-        FileAPI.saveFile(getLogin(), getPath(), getPathDst(), getFileInByte());
+//todo save file !!!!
+//        FileAPI.saveFile(getLogin(), getPath(), getPathDst(), getFileInByte());
     }
 }
