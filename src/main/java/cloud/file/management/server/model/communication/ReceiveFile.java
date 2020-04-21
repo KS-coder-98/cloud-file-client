@@ -19,7 +19,34 @@ public class ReceiveFile extends Thread{
 
     public void run(){
         while (true){
-            //todo
+            if(!msgList.isEmpty()){
+                try{
+                    byte[] id = new byte[Long.BYTES];
+                    in.read(id);
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private Message findMsgMetaData(long id) {
+        while (true) {
+            var message = LambdaExpression.find(listFileToSave, msg -> id == msg.getId());
+            if (!Objects.isNull(message))
+                return message;
+            //wait if msg no receive yet
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
