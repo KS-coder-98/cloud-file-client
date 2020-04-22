@@ -4,6 +4,7 @@ import cloud.file.management.common.Message;
 import cloud.file.management.server.model.event.ServerTask;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,14 +16,16 @@ public class EchoClientHandler extends Thread {
     private Receive receive;
     private Send send;
     private String login;
-
+    private List<Message> msgList;
+    private List<Message> msgListReceive;
     private ReceiveFile receiveFile;
 
     public EchoClientHandler(Socket socket, Socket socketForFile) {
         try {
-            List<Message> msgList = Collections.synchronizedList(new ArrayList<>());
-            receive = new Receive(new ObjectInputStream(socket.getInputStream()), msgList);
-//            receiveFile = new ReceiveFile()
+            msgList = Collections.synchronizedList(new ArrayList<>());
+            msgListReceive = Collections.synchronizedList(new ArrayList<>());
+            receive = new Receive(new ObjectInputStream(socket.getInputStream()), msgListReceive);
+            receiveFile = new ReceiveFile(socketForFile.getInputStream(), msgListReceive);
             try {
                 var msg = (Message)receive.getIn().readObject();
                 login = msg.getLogin();
@@ -40,6 +43,7 @@ public class EchoClientHandler extends Thread {
     public void run() {
         receive.start();
         send.start();
+        receiveFile.start();
     }
 
     public String getLogin() {
@@ -64,5 +68,29 @@ public class EchoClientHandler extends Thread {
 
     public void setSend(Send send) {
         this.send = send;
+    }
+
+    public List<Message> getMsgList() {
+        return msgList;
+    }
+
+    public void setMsgList(List<Message> msgList) {
+        this.msgList = msgList;
+    }
+
+    public ReceiveFile getReceiveFile() {
+        return receiveFile;
+    }
+
+    public void setReceiveFile(ReceiveFile receiveFile) {
+        this.receiveFile = receiveFile;
+    }
+
+    public List<Message> getMsgListReceive() {
+        return msgListReceive;
+    }
+
+    public void setMsgListReceive(List<Message> msgListReceive) {
+        this.msgListReceive = msgListReceive;
     }
 }

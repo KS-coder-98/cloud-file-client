@@ -33,12 +33,30 @@ public class Send extends Thread {
             if ( !msgList.isEmpty() ){
                 send(msgList.get(0));
                 msgList.remove(0);
+                System.out.println("wysłano wiadomosc");
             }else
+                System.out.println("nie ma nic do wyslania");
                 try {
                     Thread.sleep(6000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
+
+    public void setOut(ObjectOutputStream out) {
+        this.out = out;
+    }
+
+    public List<Message> getMsgList() {
+        return msgList;
+    }
+
+    public void setMsgList(List<Message> msgList) {
+        this.msgList = msgList;
     }
 }

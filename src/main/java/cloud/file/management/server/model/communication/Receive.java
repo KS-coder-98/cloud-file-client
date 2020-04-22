@@ -1,5 +1,6 @@
 package cloud.file.management.server.model.communication;
 
+import cloud.file.management.common.FileMessage;
 import cloud.file.management.common.Message;
 
 import java.io.*;
@@ -18,7 +19,9 @@ public class Receive extends Thread{
         Message inputObject;
         try {
             while ((inputObject = (Message)in.readObject())!=null){
-                    inputObject.preprocess();
+                inputObject.preprocess();
+                if ( inputObject instanceof FileMessage )
+                    msgList.add(inputObject);
             }
         }catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
