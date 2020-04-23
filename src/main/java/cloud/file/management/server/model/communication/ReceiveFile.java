@@ -28,21 +28,18 @@ public class ReceiveFile extends Thread{
         while (true) {
             if (!msgList.isEmpty()) {
                 try {
-                    System.err.println("odbiera plik1!!!");
                     FileChannel fileChannel = null;
 
                     byte[] id = new byte[Long.BYTES];
                     in.read(id);
-                    System.err.println("odebrane id z buffera "+ Convert.bytesToLong(id));
-
-                    System.err.println("odbiera plik2!!!");
-
+                    System.out.println("odczytane id= "+Convert.bytesToLong(id));
                     Message msg = findMsgMetaData(Convert.bytesToLong(id));
-                    System.out.println(msg.getLogin() + " " + msg.getPath());
-                    System.err.println("odbiera plik3!!!");
 
                     //create file
-                    var path = FileAPI.createFoldersFromPath(Path.of(msg.getPath()), msg.getPathDst());
+                    var temp = msg.getPath();
+                    if( Objects.isNull(msg.getPath() ))
+                        System.out.println("sciezka jest nulemmmmmmmm!!!!!!!!!!!!!!!!!");
+                    var path = FileAPI.createFoldersFromPath(Path.of(msg.getPath()), msg.getLogin());
                     System.out.println("sciezka + " + path);
                     fileChannel = FileChannel.open(Path.of(path),
                             EnumSet.of(StandardOpenOption.CREATE,
@@ -50,11 +47,11 @@ public class ReceiveFile extends Thread{
                                     StandardOpenOption.WRITE)
                     );
 
-                    System.out.println("czyta plik");
                     //read file
                     byte[] sizeFile = new byte[Long.BYTES];
                     in.read(sizeFile);
                     long sizeL = Convert.bytesToLong(sizeFile);
+                    System.out.println("rozmiar pliku: "+sizeL);
 
                     //set size for buffer
                     int bufferSize = 1024;
@@ -69,7 +66,6 @@ public class ReceiveFile extends Thread{
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("lista wiadmosc jest pusta");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -81,23 +77,18 @@ public class ReceiveFile extends Thread{
 
     private Message findMsgMetaData(long id) {
         while (true) {
-            System.out.println("rozmiar listy: "+ msgList.size());
-            for ( Message msg : msgList ){
-                if ( id == msg.getId() ){
-                    System.err.println("równe");
-                }
-                else{
-                    System.out.println("rózne "+ id + " "+msg.getId());
-                }
-            }
+
             var message = LambdaExpression.find(msgList, msg -> id == msg.getId());
+            System.out.println("id szukane "+id);
+            System.out.println("wiadomosci: "+ msgList.toString());
             if (!Objects.isNull(message)){
                 msgList.remove(message);
+                System.out.println("znalazlo metadane");
                 return message;
             }
             //wait if msg no receive yet
             try {
-                Thread.sleep(2000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -105,6 +96,7 @@ public class ReceiveFile extends Thread{
     }
 
     private void readAndSaveFile(FileChannel fileChannel, int sizeBufferForFile, byte[] buffer, long sizeL) throws IOException {
+        System.out.println("rozmiar jaki ma odczytać: "+sizeL);
         int countReadBytes;
         while (true) {
             if (!((countReadBytes = in.read(buffer)) > 0))
@@ -114,6 +106,7 @@ public class ReceiveFile extends Thread{
             if (sizeL < sizeBufferForFile)
                 buffer = new byte[(int)sizeL];
         }
+        System.out.println("rozmiar sizeL");
         fileChannel.close();
     }
 }

@@ -30,11 +30,11 @@ public abstract class ServerTask {
         var listFile = HandlerResources.listNameFile(login);
         Message msg = new ListLocalFileMessage(login, listFile);
         LambdaExpression.actionIf(EchoMultiServer.getListUser(),
-                t->t.getReceive().getMsgList().add(msg),
+                t->t.getSend().getMsgList().add(msg),
                 t->t.getLogin().equals(login)
         );
         for ( var s : EchoMultiServer.getListUser() ){
-            System.err.println(s.getReceive().getMsgList().toString());
+            System.err.println(s.getSend().getMsgList().toString());
         }
         System.out.println("end sendListFileUser");
     }
@@ -42,7 +42,7 @@ public abstract class ServerTask {
     public static void sendListUserName(){
         Message msg = new ListUserMessage();
         LambdaExpression.consumer(EchoMultiServer.getListUser(),
-                t->t.getReceive().getMsgList().add(msg)
+                t->t.getSend().getMsgList().add(msg)
         );
     }
 }
