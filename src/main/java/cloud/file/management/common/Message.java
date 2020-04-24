@@ -22,7 +22,6 @@ public abstract class Message implements Serializable {
     public Message(String login) {
         this.login = login;
         this.path = null;
-//        this.fileInByte = null;
     }
 
     public Message(String login, List<String> list){

@@ -16,7 +16,6 @@ public class FileMessage extends Message {
     @Override
     public void preprocess() {
         System.out.println("preprocess FileMessage");
-        System.out.println("nazwa "+ this.getPath());
         LambdaExpression.actionIf(EchoMultiServer.getListUser(),
                 (EchoClientHandler e)->e.getReceive().getMsgList().add(this),
                 echoClientHandler -> echoClientHandler.getLogin().equals(getLogin()));

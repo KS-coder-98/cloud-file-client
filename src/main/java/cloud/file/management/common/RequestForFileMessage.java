@@ -18,14 +18,13 @@ public class RequestForFileMessage extends Message {
     public void preprocess() {
         System.out.println("preprocess RequestForFile "+getList());
         for (var relativePath : getList()) {
-            Path absolutePath = Path.of(ServerSetting.getPathToUserResources().toString()+"\\"+getLogin()+"\\"+relativePath);
             System.out.println("serwer ma wyslac te pliki: ");
             //todo wysyłanie plikow do klijenta
-//            Message msg = new FileMessage(getLogin(), relativePath, getLogin(), FileAPI.getStreamFile(absolutePath));
-//            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
-//                    t->t.getReceive().getMsgList().add(msg),
-//                    t->t.getLogin().equals(getLogin())
-//            );
+            Message msg = new FileMessage(getLogin(), relativePath, "", getId());
+            LambdaExpression.actionIf(EchoMultiServer.getListUser(),
+                    t->t.getSend().getMsgList().add(msg),
+                    t->t.getLogin().equals(getLogin())
+            );
         }
     }
 }

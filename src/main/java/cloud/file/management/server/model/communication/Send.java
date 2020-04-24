@@ -1,12 +1,13 @@
 package cloud.file.management.server.model.communication;
 
-import cloud.file.management.common.ListUserMessage;
+import cloud.file.management.common.FileMessage;
 import cloud.file.management.common.Message;
+import cloud.file.management.server.model.LambdaExpression;
+import cloud.file.management.server.model.ServerSetting;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.nio.file.Path;
 import java.util.List;
 
 public class Send extends Thread {
@@ -22,6 +23,12 @@ public class Send extends Thread {
         try {
             out.writeObject(msg);
             out.flush();
+            if ( msg instanceof FileMessage){
+                LambdaExpression.actionIf(EchoMultiServer.getListUser(),
+                        handler -> handler.getSendFile().sendFile(Path.of( msg.getPath()), msg.getId(), msg.getLogin()),
+                        handler->handler.getLogin().equals(msg.getLogin())
+                        );
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,7 +36,6 @@ public class Send extends Thread {
 
     public void run() {
         while (true) {
-//            send(new ListUserMessage());
             if ( !msgList.isEmpty() ){
                 send(msgList.get(0));
                 msgList.remove(0);

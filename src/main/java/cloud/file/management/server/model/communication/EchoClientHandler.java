@@ -19,6 +19,7 @@ public class EchoClientHandler extends Thread {
     private List<Message> msgList;
     private List<Message> msgListReceive;
     private ReceiveFile receiveFile;
+    private SendFile sendFile;
 
     public EchoClientHandler(Socket socket, Socket socketForFile) {
         try {
@@ -33,7 +34,9 @@ public class EchoClientHandler extends Thread {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            var outPutFile = socketForFile.getOutputStream();
             send = new Send(new ObjectOutputStream(socket.getOutputStream()), msgList);
+            sendFile = new SendFile(outPutFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,5 +95,13 @@ public class EchoClientHandler extends Thread {
 
     public void setMsgListReceive(List<Message> msgListReceive) {
         this.msgListReceive = msgListReceive;
+    }
+
+    public SendFile getSendFile() {
+        return sendFile;
+    }
+
+    public void setSendFile(SendFile sendFile) {
+        this.sendFile = sendFile;
     }
 }

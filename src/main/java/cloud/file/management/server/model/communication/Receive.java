@@ -20,8 +20,6 @@ public class Receive extends Thread{
         try {
             while ((inputObject = (Message)in.readObject())!=null){
                 inputObject.preprocess();
-//                if ( inputObject instanceof FileMessage )
-//                    msgList.add(inputObject);
             }
         }catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
