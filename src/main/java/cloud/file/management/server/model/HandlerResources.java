@@ -16,6 +16,13 @@ import java.util.stream.Stream;
 
 public abstract class HandlerResources {
 
+    /**
+     * List directory is implements recursive.
+     *
+     * @param path localisation which from generate list of all directory
+     * @return Return treeItem with list directory from path. type TreeItem is need to javaFx
+     * @throws FileNotFoundException throw exception when not file exists or another error with this path
+     */
     public static TreeItem<String> listDirectory(Path path) throws FileNotFoundException {
         if (!Files.exists(path))
             throw new FileNotFoundException("wrong path");
@@ -55,7 +62,6 @@ public abstract class HandlerResources {
         List<String> fileList = null;
         Path path = Path.of( ServerSetting.getPathToUserResources().toString()+"\\"+login);
         int index = (path.toString()).length();
-//        int index = User.getPath().toString().length();
         try (Stream<Path> pathStream = Files.walk(path)){
             fileList = pathStream.filter(p->Files.isRegularFile(p))
                     .map(Path::toString)

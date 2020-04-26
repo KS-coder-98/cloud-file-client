@@ -10,8 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class implements loading information about user
+ */
 public abstract class LoadUserResources {
 
+    /**
+     * Function returns list of paths user which registered on server
+     *
+     * @return return list of users's path or null when something goes wrong
+     */
     public static List<String> loadUsers() {
         try (Stream<Path> walk = Files.walk(ServerSetting.getPathToUserResources(), 1)) {
             return walk
@@ -23,6 +31,11 @@ public abstract class LoadUserResources {
         return null;
     }
 
+    /**
+     *  Function return list of user login
+     *
+     * @return Returns users login
+     */
     public static List<String> loadListUser() {
         var list = loadUsers();
         var index = ServerSetting.getPathToUserResources().toString().length();

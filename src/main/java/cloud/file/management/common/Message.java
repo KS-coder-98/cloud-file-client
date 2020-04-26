@@ -5,6 +5,9 @@ import cloud.file.management.server.model.communication.Send;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ *  Class implements container for metadata message. This class implements Serializable.
+ */
 public abstract class Message implements Serializable {
     private String login;
     private String path;
@@ -12,6 +15,12 @@ public abstract class Message implements Serializable {
     private long id;
     private List<String> list;
 
+    /**
+     * @param login user login
+     * @param path path to file
+     * @param pathDst destination user
+     * @param id id file to recognize file
+     */
     public Message(String login, String path, String pathDst, long id) {
         this.login = login;
         this.path = path;

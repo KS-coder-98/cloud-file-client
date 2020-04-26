@@ -4,12 +4,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Class implements features work with file
+ */
 public abstract class FileAPI {
 
-    public static String createFoldersFromPath(Path path, String dst) {
-        //dst -> login user (name user's folder)
+    /**
+     * This function process path to saving file
+     *
+     * @param path path where file was read
+     * @param userDst login user, which going to saving file
+     * @return Return complete path to save file
+     */
+    public static String createFoldersFromPath(Path path, String userDst) {
         String[] splitPath = path.toString().split("\\\\");
-        String partOfPart = ServerSetting.getPathToUserResources().toString() + "\\" + dst;
+        String partOfPart = ServerSetting.getPathToUserResources().toString() + "\\" + userDst;
         if (splitPath.length > 1) {
             for (int i = 0; i < splitPath.length - 1; i++) {
                 partOfPart = partOfPart + "\\" + splitPath[i];
@@ -23,7 +32,7 @@ public abstract class FileAPI {
             }
             return partOfPart + "\\" + splitPath[splitPath.length - 1];
         } else {
-            return ServerSetting.getPathToUserResources() + "\\" + dst + "\\" + path;
+            return ServerSetting.getPathToUserResources() + "\\" + userDst + "\\" + path;
         }
     }
 }

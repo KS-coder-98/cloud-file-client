@@ -4,6 +4,9 @@ import cloud.file.management.server.model.event.ServerTask;
 
 import java.util.List;
 
+/**
+ * This class extend Message class. Target this class give or processed information about local user's files
+ */
 public class ListLocalFileMessage extends Message {
 
     public ListLocalFileMessage(String login, List<String> list){

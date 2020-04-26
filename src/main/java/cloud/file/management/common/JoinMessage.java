@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * This class extend Message class. Target this class information about new user
+ */
 public class JoinMessage extends Message {
     public JoinMessage(String login) {
         super(login);
