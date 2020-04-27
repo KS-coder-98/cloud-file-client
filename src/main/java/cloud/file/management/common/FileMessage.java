@@ -1,11 +1,11 @@
 package cloud.file.management.common;
 
 import cloud.file.management.server.model.LambdaExpression;
-import cloud.file.management.server.model.communication.EchoClientHandler;
+import cloud.file.management.server.model.communication.EchoClientHandle;
 import cloud.file.management.server.model.communication.EchoMultiServer;
 
 /**
- * This class extend Message class. Target this class is processed metadata for file
+ * This class extend Message class. Target this class is processed metadata for receiving file
  */
 public class FileMessage extends Message {
     public FileMessage() {
@@ -26,8 +26,8 @@ public class FileMessage extends Message {
     public void preprocess() {
         System.out.println("preprocess FileMessage");
         LambdaExpression.actionIf(EchoMultiServer.getListUser(),
-                (EchoClientHandler e)->e.getReceive().getMsgList().add(this),
-                echoClientHandler -> echoClientHandler.getLogin().equals(getLogin()));
+                (EchoClientHandle e)->e.getReceive().getMsgList().add(this),
+                echoClientHandle -> echoClientHandle.getLogin().equals(getLogin()));
     }
 
 }

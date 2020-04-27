@@ -14,7 +14,7 @@ import java.util.List;
  * This class implements handle for a client and it is extended by Thread interface. This class stores data about client
  *
  */
-public class EchoClientHandler extends Thread {
+public class EchoClientHandle extends Thread {
     private Receive receive;
     private Send send;
     private String login;
@@ -30,7 +30,7 @@ public class EchoClientHandler extends Thread {
      * @param socket socket is responsible for exchanging metadata between the client and the server
      * @param socketForFile socket is responsible for exchanging files between client and server
      */
-    public EchoClientHandler(Socket socket, Socket socketForFile) {
+    public EchoClientHandle(Socket socket, Socket socketForFile) {
         try {
             msgList = Collections.synchronizedList(new ArrayList<>());
             msgListReceive = Collections.synchronizedList(new ArrayList<>());

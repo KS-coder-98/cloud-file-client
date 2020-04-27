@@ -17,7 +17,7 @@ public class EchoMultiServer {
     private static ServerSocket socket;
     private static ServerSocket socketForFile;
     private static int port;
-    private static List<EchoClientHandler> listUser;
+    private static List<EchoClientHandle> listUser;
 
     /**
      * Creates EchoMultiServer, bound to the specified port.
@@ -39,7 +39,7 @@ public class EchoMultiServer {
      * The second socket is assigned to variable 'socketForFile'. This socket runs on port number taken value from class and
      * increases by one. This socket is responsible for exchanging files between the server and the client
      *
-     * 'listUser' stores all clients in the server. EchoClientHandler adds to the list every time !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//todo
+     * 'listUser' stores all clients in the server. EchoClientHandle adds to the list every time
      * when exchange data between server and client starts
      */
     public static void run() {
@@ -47,9 +47,9 @@ public class EchoMultiServer {
             socket = new ServerSocket(port);
             socketForFile = new ServerSocket(port+1);
             while (true){
-                EchoClientHandler echoClientHandler = new EchoClientHandler(socket.accept(), socketForFile.accept());
-                echoClientHandler.start();
-                listUser.add(echoClientHandler);
+                EchoClientHandle echoClientHandle = new EchoClientHandle(socket.accept(), socketForFile.accept());
+                echoClientHandle.start();
+                listUser.add(echoClientHandle);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class EchoMultiServer {
      *
      * @return This returns the list of handle user's list
      */
-    public static List<EchoClientHandler> getListUser() {
+    public static List<EchoClientHandle> getListUser() {
         return listUser;
     }
 }
