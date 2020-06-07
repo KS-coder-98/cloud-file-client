@@ -25,7 +25,7 @@ public abstract class ServerTask {
     public static void makeRequestForFile(List<String> list, String login){
         System.out.println("run makeRequestForFile");
         List<String> listFileInServer = HandlerResources.listNameFile(login);
-        list.removeAll(listFileInServer);;
+        list.removeAll(listFileInServer);
         Message msg = new RequestForFileMessage(login, list);
         LambdaExpression.actionIf(EchoMultiServer.getListUser(),
                 t->t.getSend().getMsgList().add(msg),
